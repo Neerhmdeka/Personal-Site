@@ -2,7 +2,53 @@
 
 import { forwardRef, useMemo, useRef } from "react"
 import { Effect, BlendFunction } from "postprocessing"
-import { Uniform, Vector2 } from "three"
+import { Uniform, Vector2, WebGLRenderer, WebGLRenderTarget } from "three"
+
+interface PostFxOptions {
+  scanlineIntensity?: number
+  scanlineCount?: number
+  targetFPS?: number
+  jitterIntensity?: number
+  jitterSpeed?: number
+  mouseGlowEnabled?: boolean
+  mouseGlowRadius?: number
+  mouseGlowIntensity?: number
+  vignetteIntensity?: number
+  vignetteRadius?: number
+  colorPalette?: number
+  curvature?: number
+  aberrationStrength?: number
+  noiseIntensity?: number
+  noiseScale?: number
+  noiseSpeed?: number
+  waveAmplitude?: number
+  waveFrequency?: number
+  waveSpeed?: number
+  glitchIntensity?: number
+  glitchFrequency?: number
+  brightnessAdjust?: number
+  contrastAdjust?: number
+}
+
+interface AsciiEffectOptions {
+  cellSize?: number
+  invert?: boolean
+  color?: boolean
+  style?: number
+  resolution?: Vector2
+  mousePos?: Vector2
+  postfx?: PostFxOptions
+}
+
+interface AsciiEffectProps {
+  style?: string
+  cellSize?: number
+  invert?: boolean
+  color?: boolean
+  postfx?: PostFxOptions
+  resolution?: Vector2
+  mousePos?: Vector2
+}
 
 const fragmentShader = `
 // Basic uniforms
@@ -238,7 +284,7 @@ let _resolution = new Vector2(1920, 1080)
 let _mousePos = new Vector2(0, 0)
 
 class AsciiEffectImpl extends Effect {
-  constructor(options) {
+  constructor(options: AsciiEffectOptions) {
     const {
       cellSize = 14,
       invert = false,
@@ -251,7 +297,7 @@ class AsciiEffectImpl extends Effect {
 
     super("AsciiEffect", fragmentShader, {
       blendFunction: BlendFunction.NORMAL,
-      uniforms: new Map([
+      uniforms: new Map<string, Uniform<any>>([
         ["cellSize", new Uniform(cellSize)],
         ["invert", new Uniform(invert)],
         ["colorMode", new Uniform(color)],
@@ -293,31 +339,40 @@ class AsciiEffectImpl extends Effect {
     _mousePos = mousePos
   }
 
-  update(renderer, inputBuffer, deltaTime) {
-    const targetFPS = this.uniforms.get("targetFPS").value
+  update(renderer: WebGLRenderer, inputBuffer: WebGLRenderTarget, deltaTime?: number) {
+    const dt = deltaTime ?? 0
+    const targetFPS = this.uniforms.get("targetFPS")?.value ?? 0
 
     if (targetFPS > 0) {
       const frameDuration = 1 / targetFPS
-      _deltaAccumulator += deltaTime
+      _deltaAccumulator += dt
       if (_deltaAccumulator >= frameDuration) {
         _time += frameDuration
         _deltaAccumulator = _deltaAccumulator % frameDuration
       }
     } else {
-      _time += deltaTime
+      _time += dt
     }
 
-    this.uniforms.get("time").value = _time
-    this.uniforms.get("cellSize").value = _cellSize
-    this.uniforms.get("invert").value = _invert
-    this.uniforms.get("colorMode").value = _colorMode
-    this.uniforms.get("asciiStyle").value = _asciiStyle
-    this.uniforms.get("resolution").value = _resolution
-    this.uniforms.get("mousePos").value = _mousePos
+    const timeUniform = this.uniforms.get("time")
+    const cellSizeUniform = this.uniforms.get("cellSize")
+    const invertUniform = this.uniforms.get("invert")
+    const colorModeUniform = this.uniforms.get("colorMode")
+    const asciiStyleUniform = this.uniforms.get("asciiStyle")
+    const resolutionUniform = this.uniforms.get("resolution")
+    const mousePosUniform = this.uniforms.get("mousePos")
+
+    if (timeUniform) timeUniform.value = _time
+    if (cellSizeUniform) cellSizeUniform.value = _cellSize
+    if (invertUniform) invertUniform.value = _invert
+    if (colorModeUniform) colorModeUniform.value = _colorMode
+    if (asciiStyleUniform) asciiStyleUniform.value = _asciiStyle
+    if (resolutionUniform) resolutionUniform.value = _resolution
+    if (mousePosUniform) mousePosUniform.value = _mousePos
   }
 }
 
-export const AsciiEffect = forwardRef((props, ref) => {
+export const AsciiEffect = forwardRef<Effect, AsciiEffectProps>((props, ref) => {
   const {
     style = "standard",
     cellSize = 14,
@@ -328,7 +383,7 @@ export const AsciiEffect = forwardRef((props, ref) => {
     mousePos = new Vector2(0, 0)
   } = props
 
-  const styleMap = { standard: 0, dense: 1, minimal: 2, blocks: 3 }
+  const styleMap: Record<string, number> = { standard: 0, dense: 1, minimal: 2, blocks: 3 }
   const styleNum = styleMap[style] || 0
 
   _cellSize = cellSize
