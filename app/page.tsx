@@ -45,12 +45,12 @@ export default function Home() {
     <div className="bg-white">
       <main>
         <div className="max-w-[1092px] mx-auto">
-          <div className="flex relative px-6 gap-12">
-            <div className="w-4/5">
-              <section id="background" className="h-screen flex items-center">
+          <div className="flex relative px-6 lg:gap-12">
+            <div className="w-full lg:w-4/5">
+              <section id="background" className="min-h-screen flex items-center">
                 <div>
                   <img src="/dithered_image.png" alt="Neerh Deka" className="w-[100px] h-[100px] rounded-full object-cover mb-8" />
-                  <div className="text-[36px]">
+                  <div className="text-[24px] lg:text-[36px]">
                     <div>Hi, my name is Neerh, I am a <RotatingEncryptedText words={["Designer", "Developer", "Founder"]} cycleDelayMs={3000} revealDelayMs={400} /></div>
                     <div>with almost a decade of experience, who</div>
                     <div>cares about making beautiful things</div>
@@ -61,7 +61,7 @@ export default function Home() {
                   </div>
                 </div>
               </section>
-              <section id="experience" className="h-screen flex items-center">
+              <section id="experience" className="hidden lg:flex min-h-screen items-center">
                 <div className="w-full">
                   <div className="grid grid-cols-3 gap-4 mb-12">
                     <div className="text-[16px]">Bynder</div>
@@ -85,9 +85,9 @@ export default function Home() {
                   </div>
                 </div>
               </section>
-              <section id="work" className="h-screen flex items-center">
+              <section id="work" className="min-h-screen flex items-center">
                 <div className="w-full max-w-2xl">
-                  <div className="grid grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <a href="https://pitch.com/v/microsite-builder-kyvttp" target="_blank" rel="noopener noreferrer" className="aspect-square bg-gray-200 overflow-hidden block relative group transition-transform hover:scale-[1.02] active:scale-[0.98]">
                       <video 
                         src="/P1.mov" 
@@ -141,7 +141,7 @@ export default function Home() {
                   </div>
                 </div>
               </section>
-              <section id="articles" className="h-screen flex items-center">
+              <section id="articles" className="min-h-screen flex items-center">
                 <div className="w-full">
                   <div className="flex items-start gap-3 mb-12">
                     <img src="https://miro.medium.com/v2/resize:fill:320:214/1*ssXH29tINN6KwwSPf-W2jQ.jpeg" alt="" className="w-[40px] h-[40px] object-cover flex-shrink-0" />
@@ -190,7 +190,7 @@ export default function Home() {
                   </div>
                 </div>
               </section>
-              <section id="about" className="h-screen flex items-center">
+              <section id="about" className="min-h-screen flex items-center">
                 <div className="w-full max-w-2xl">
                   <div className="text-[16px]">
                     <div className="mb-8">
@@ -216,7 +216,7 @@ export default function Home() {
                         <div>AI tools and apps</div>
                       </div>
                     </div>
-                    <div>
+                    <div className="hidden">
                       <div className="mb-4 uppercase">Worked with/For</div>
                       <div className="grid grid-cols-5 gap-6 items-center">
                         <div className="flex items-center justify-center h-4">
@@ -252,7 +252,7 @@ export default function Home() {
                 </div>
               </section>
             </div>
-            <div className="w-1/5 sticky top-0 h-screen flex items-center">
+            <div className="hidden lg:flex w-1/5 sticky top-0 h-screen items-center">
               <nav className="flex flex-col gap-4 w-full items-start">
                 <a 
                   href="#background" 
