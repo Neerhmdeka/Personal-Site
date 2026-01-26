@@ -1,363 +1,209 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import RotatingEncryptedText from "./components/RotatingEncryptedText";
+import { useEffect, useRef } from 'react';
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState("background");
+  const video1Ref = useRef<HTMLVideoElement>(null);
+
+  const getButtonText = (cardNumber: number) => {
+    if (cardNumber === 5) return 'COMING SOON';
+    if (cardNumber === 6) return 'NDA';
+    return 'READ CASE STUDY';
+  };
+
+  const getProjectTitle = (cardNumber: number) => {
+    const titles: { [key: number]: string } = {
+      1: 'Site Builder',
+      2: 'Design System update',
+      3: 'Bynder Onboarding',
+      4: 'Fitness mobile app',
+      5: 'AI search',
+      6: 'Notification system',
+    };
+    return titles[cardNumber] || 'Project';
+  };
+
+  const getProjectLink = (cardNumber: number) => {
+    const links: { [key: number]: string } = {
+      1: 'https://pitch.com/v/microsite-builder-kyvttp/a9d88970-aeb7-4a8f-8b78-9d3bf7fd8652',
+      2: 'https://app.pitch.com/app/player/40ba0d9b-9e29-495d-bc8e-9fa9a3859aa5/7253ac73-ce21-42c4-85a8-2d0ca93960ba/cdc9630d-5bdb-438b-a2cc-65a9da0b94b4',
+      3: 'https://app.pitch.com/app/player/40ba0d9b-9e29-495d-bc8e-9fa9a3859aa5/05093b1f-a449-4a58-a3ef-4581e6bd54c8/bd095b9b-9bed-4073-9af7-e7ca8b27709c',
+      4: 'https://drive.google.com/file/d/1_CPOu_A_bUf6W7OOxe6MVLYi69RLxLb7/view',
+    };
+    return links[cardNumber] || '#';
+  };
 
   useEffect(() => {
-    const sections = ["background", "about", "experience", "work", "articles"];
-    
-    const observerOptions = {
-      root: null,
-      rootMargin: "-50% 0px -50% 0px",
-      threshold: 0,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+    // Ensure videos play after component mounts
+    const playVideos = async () => {
+      if (video1Ref.current) {
+        try {
+          await video1Ref.current.play();
+        } catch (error) {
+          console.error('Error playing video:', error);
         }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    sections.forEach((sectionId) => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        observer.observe(element);
       }
-    });
-
-    return () => {
-      sections.forEach((sectionId) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          observer.unobserve(element);
-        }
-      });
     };
+    playVideos();
   }, []);
   return (
-    <div className="bg-white">
+    <div className="overflow-x-hidden">
+      {/* Mobile/Tablet Header - Contact Only */}
+      <header className="xl:hidden w-screen border-b border-[rgba(14,14,13,0.05)]">
+        <div className="max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto py-[1.5rem] px-[1rem] grid grid-cols-12 items-center">
+          <a 
+            href="mailto:mriganavdeka@gmail.com" 
+            className="col-span-2 text-[0.875rem] md:text-[1rem] font-space-grotesk text-black hover:text-gray-400 transition-colors"
+          >
+            mriganavdeka@gmail.com
+          </a>
+        </div>
+      </header>
+      
+      {/* Desktop Header - Full */}
+      <header className="hidden xl:block w-screen border-b border-[rgba(14,14,13,0.05)]">
+        <div className="max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto py-[1.5rem] px-[1rem] md:px-0 grid grid-cols-12 items-center relative">
+          <a href="#work" className="col-span-6 md:col-span-2 text-[0.875rem] md:text-[1rem] pl-0 md:pl-[2rem] uppercase font-space-grotesk flex items-center hover:text-gray-400 transition-colors">Work</a>
+          <a href="#" className="col-span-6 md:col-span-2 md:col-start-3 text-[0.875rem] md:text-[1rem] pl-0 md:pl-[2rem] uppercase font-space-grotesk flex items-center hover:text-gray-400 transition-colors">Articles</a>
+          <a 
+            href="mailto:mriganavdeka@gmail.com" 
+            className="col-span-12 md:col-span-2 md:col-start-11 text-[0.75rem] md:text-[1rem] mt-[0.5rem] md:mt-0 font-space-grotesk text-black flex items-center hover:text-gray-400 transition-colors"
+          >
+            mriganavdeka@gmail.com
+          </a>
+        </div>
+      </header>
       <main>
-        <div className="max-w-[1092px] mx-auto">
-          <div className="flex relative px-6 lg:gap-12">
-            <div className="w-full lg:w-4/5">
-              <section id="background" className="min-h-screen flex items-center">
-                <div>
-                  <img src="/dithered_image.png" alt="Neerh Deka" className="w-[100px] h-[100px] rounded-full object-cover mb-8" />
-                  <div className="text-[24px] lg:text-[36px]">
-                    <div>Hi, my name is Neerh, I am a <RotatingEncryptedText words={["Designer", "Developer", "Founder"]} cycleDelayMs={3000} revealDelayMs={400} /></div>
-                    <div>with almost a decade of experience, who</div>
-                    <div>cares about making beautiful things</div>
-                    <div>that help people.</div>
-                  </div>
-                  <div className="mt-8">
-                    <a href="mailto:mriganavdeka@gmail.com" className="text-[16px] bg-black text-white px-6 py-3 inline-block transition-colors hover:bg-gray-800 active:bg-gray-900 uppercase">Contact</a>
-                  </div>
-                </div>
-              </section>
-              <section id="experience" className="hidden lg:flex min-h-screen items-center">
-                <div className="w-full">
-                  <div className="grid grid-cols-3 gap-4 mb-12">
-                    <div className="text-[16px]">Bynder</div>
-                    <div className="text-[16px]">Senior Product Designer</div>
-                    <div className="text-[16px]">Mar 2022-Now</div>
-                  </div>
-                  <div className="grid grid-cols-3 gap-4 mb-12">
-                    <div className="text-[16px] text-gray-500">Telescope</div>
-                    <div className="text-[16px] text-gray-500">Founding designer</div>
-                    <div className="text-[16px] text-gray-500">2023</div>
-                  </div>
-                  <div className="grid grid-cols-3 gap-4 mb-12">
-                    <div className="text-[16px] text-gray-500">Swemax</div>
-                    <div className="text-[16px] text-gray-500">Product Designer</div>
-                    <div className="text-[16px] text-gray-500">2021-2022</div>
-                  </div>
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className="text-[16px] text-gray-500">Advantage</div>
-                    <div className="text-[16px] text-gray-500">Product designer</div>
-                    <div className="text-[16px] text-gray-500">March 2020-22</div>
-                  </div>
-                </div>
-              </section>
-              <section id="work" className="min-h-screen flex items-center">
-                <div className="w-full max-w-2xl">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <a href="https://pitch.com/v/microsite-builder-kyvttp" target="_blank" rel="noopener noreferrer" className="aspect-square bg-gray-200 overflow-hidden block relative group transition-transform hover:scale-[1.02] active:scale-[0.98]">
-                      <video 
-                        src="/P1.mov" 
-                        autoPlay 
-                        loop 
-                        muted 
-                        playsInline
-                        className="w-full h-full object-cover object-center"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
-                        <div className="text-[16px] font-medium mb-1">Doubling AAR using microsite builder</div>
-                        <div className="text-[14px] text-white/80">Product design • Strategy • 2024</div>
-                      </div>
-                    </a>
-                    <a href="https://pitch.com/v/design-system-update-v3i5uk" target="_blank" rel="noopener noreferrer" className="aspect-square bg-gray-200 overflow-hidden block relative group transition-transform hover:scale-[1.02] active:scale-[0.98]">
-                      <video 
-                        src="/P2.mov" 
-                        autoPlay 
-                        loop 
-                        muted 
-                        playsInline
-                        className="w-full h-full object-cover object-center scale-110"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
-                        <div className="text-[16px] font-medium mb-1">Design system update</div>
-                        <div className="text-[14px] text-white/80">Product design • Design System • 2024</div>
-                      </div>
-                    </a>
-                    <a href="https://pitch.com/v/bynder-onboarding-4j9rpa" target="_blank" rel="noopener noreferrer" className="aspect-square bg-gray-200 overflow-hidden block relative group transition-transform hover:scale-[1.02] active:scale-[0.98]">
-                      <img 
-                        src="/P3.png" 
-                        alt="Project 3"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
-                        <div className="text-[16px] font-medium mb-1">Reducing Bynder Onboarding time</div>
-                        <div className="text-[14px] text-white/80">Product design • Strategy • 2023</div>
-                      </div>
-                    </a>
-                    <a href="https://drive.google.com/file/d/1_CPOu_A_bUf6W7OOxe6MVLYi69RLxLb7/view" target="_blank" rel="noopener noreferrer" className="aspect-square bg-gray-200 overflow-hidden block relative group transition-transform hover:scale-[1.02] active:scale-[0.98]">
-                      <img 
-                        src="/P4.png" 
-                        alt="Project 4"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent text-white">
-                        <div className="text-[16px] font-medium mb-1">Helping founders launch a new product</div>
-                        <div className="text-[14px] text-white/80">UX design • Mobile • 2021</div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </section>
-              <section id="articles" className="min-h-screen flex items-center">
-                <div className="w-full">
-                  <div className="flex items-start gap-3 mb-12">
-                    <img src="https://miro.medium.com/v2/resize:fill:320:214/1*ssXH29tINN6KwwSPf-W2jQ.jpeg" alt="" className="w-[40px] h-[40px] object-cover flex-shrink-0" />
-                    <div className="flex flex-col">
-                      <div className="text-[16px]">Beyond the algorithm: The profound power of product detail</div>
-                      <div className="text-[14px] text-gray-500">Oct 2025</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 mb-12">
-                    <img src="https://miro.medium.com/v2/da:true/resize:fill:320:214/0*ZfK9SOD20AOgA27c" alt="" className="w-[40px] h-[40px] object-cover flex-shrink-0" />
-                    <div className="flex flex-col">
-                      <div className="text-[16px]">What is a Designer?</div>
-                      <div className="text-[14px] text-gray-500">Oct 16, 2025</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 mb-12">
-                    <img src="https://miro.medium.com/v2/resize:fill:320:214/1*KR7DnwdQxA0nlJRriTKEqQ.png" alt="" className="w-[40px] h-[40px] object-cover flex-shrink-0" />
-                    <div className="flex flex-col">
-                      <div className="text-[16px]">The Myth of 'Customer-Centricity': Iconic products defied their user</div>
-                      <div className="text-[14px] text-gray-500">Sep 2025</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 mb-12">
-                    <img src="https://miro.medium.com/v2/resize:fill:320:214/1*cw5nFvjJbdweqHVOXUQ0rA.png" alt="" className="w-[40px] h-[40px] object-cover flex-shrink-0" />
-                    <div className="flex flex-col">
-                      <div className="text-[16px]">The Feature Funeral: Why your SaaS innovation depends on killing your darling</div>
-                      <div className="text-[14px] text-gray-500">Aug 2025</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 mb-12">
-                    <img src="https://miro.medium.com/v2/resize:fill:320:214/1*2m93XqEK9mQGVPAA5dqWCQ.png" alt="" className="w-[40px] h-[40px] object-cover flex-shrink-0" />
-                    <div className="flex flex-col">
-                      <div className="text-[16px]">How product designers are the first revenue engine for AI startup</div>
-                      <div className="text-[14px] text-gray-500">Jul 2025</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 mb-8">
-                    <img src="https://miro.medium.com/v2/resize:fill:320:214/1*p0bNGI7ZpkdJxk_-ulhrSA.png" alt="" className="w-[40px] h-[40px] object-cover flex-shrink-0" />
-                    <div className="flex flex-col">
-                      <div className="text-[16px]">The AI-ready design system: The 5 components your component library must update first</div>
-                      <div className="text-[14px] text-gray-500">Jun 2025</div>
-                    </div>
-                  </div>
-                  <div className="mt-8">
-                    <a href="https://medium.com/@mriganavdeka" target="_blank" rel="noopener noreferrer" className="text-[16px] bg-black text-white px-6 py-3 inline-block transition-colors hover:bg-gray-800 active:bg-gray-900 uppercase">Read more</a>
-                  </div>
-                </div>
-              </section>
-              <section id="about" className="min-h-screen flex items-center">
-                <div className="w-full max-w-2xl">
-                  <div className="text-[16px]">
-                    <div className="mb-8">
-                      <div className="mb-4 uppercase">I can help with</div>
-                      <div className="text-gray-500 space-y-2">
-                        <div>Framer and Webflow website design & development</div>
-                        <div>Local business websites</div>
-                        <div>Digital product design</div>
-                        <div>Design systems</div>
-                        <div>Startup design advisor</div>
-                        <div>Startup and business strategy</div>
-                      </div>
-                    </div>
-                    <div className="mb-8">
-                      <div className="mb-4 uppercase">Current Interests</div>
-                      <div className="text-gray-500 space-y-2">
-                        <div>All things dither and shaders</div>
-                        <div>Woodworking</div>
-                        <div>Working out and combat sports</div>
-                        <div>90s electronics & hardware</div>
-                        <div>Collecting Vinyl</div>
-                        <div>Cars and motosport</div>
-                        <div>AI tools and apps</div>
-                      </div>
-                    </div>
-                    <div className="hidden">
-                      <div className="mb-4 uppercase">Worked with/For</div>
-                      <div className="grid grid-cols-5 gap-6 items-center">
-                        <div className="flex items-center justify-center h-4">
-                          <img src="/a.png" alt="" className="max-h-4 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="flex items-center justify-center h-4">
-                          <img src="/b.png" alt="" className="max-h-4 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="flex items-center justify-center h-4">
-                          <img src="/c.png" alt="" className="max-h-4 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="flex items-center justify-center h-4">
-                          <img src="/d.png" alt="" className="max-h-4 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="flex items-center justify-center h-4">
-                          <img src="/e.png" alt="" className="max-h-4 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="flex items-center justify-center h-3">
-                          <img src="/f.png" alt="" className="max-h-3 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="flex items-center justify-center h-3">
-                          <img src="/g.png" alt="" className="max-h-3 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="flex items-center justify-center h-4">
-                          <img src="/h.png" alt="" className="max-h-4 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="flex items-center justify-center h-4">
-                          <img src="/i.png" alt="" className="max-h-4 w-auto object-contain opacity-60 hover:opacity-100 transition-opacity" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
+        {/* Section 1 - 85vh */}
+        <section className="min-h-[70vh] md:h-[70vh] xl:h-[85vh] w-screen border-b border-[rgba(14,14,13,0.05)]">
+          <div className="h-full max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 items-stretch relative">
+            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+            <div className="hidden md:block absolute left-[66.666667%] top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+            <div className="col-span-12 md:col-span-8 xl:col-span-8 px-[1rem] md:px-[1.5rem] pt-[2rem] md:pt-[4rem] pb-0 md:pb-[4rem] flex items-center">
+              <p className="text-[1rem] md:text-[1.5rem]">Hi, I'm Neerh, a product designer and software engineer based in Rotterdam. This is my corner of the internet, where I share my work, craft, experiments, and the in-progress ideas I'm exploring.
+
+Over the past decade, I've collaborated with startups to build well-designed, fast, and delightful digital experiences. Outside of work, I'm into music, gaming, and the intersection of design and code. I'm especially drawn to using technology to create products that offer health, help, or hope where it truly matters.</p>
             </div>
-            <div className="hidden lg:flex w-1/5 sticky top-0 h-screen items-center">
-              <nav className="flex flex-col gap-4 w-full items-start">
-                <a 
-                  href="#background" 
-                  className={`group text-[16px] px-2 py-1 -mx-2 -my-1 transition-colors flex items-center gap-2 ${
-                    activeSection === "background" 
-                      ? "bg-black text-white" 
-                      : "hover:bg-black hover:text-white"
-                  }`}
-                >
-                  <video 
-                    src="/Ani.mp4" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className={`w-[15px] h-[15px] flex-shrink-0 ${
-                      activeSection === "background" ? "block" : "hidden group-hover:block"
-                    }`}
-                  />
-                  Background
-                </a>
-                <a 
-                  href="#experience" 
-                  className={`group text-[16px] px-2 py-1 -mx-2 -my-1 transition-colors flex items-center gap-2 ${
-                    activeSection === "experience" 
-                      ? "bg-black text-white" 
-                      : "hover:bg-black hover:text-white"
-                  }`}
-                >
-                  <video 
-                    src="/Ani.mp4" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className={`w-[15px] h-[15px] flex-shrink-0 ${
-                      activeSection === "experience" ? "block" : "hidden group-hover:block"
-                    }`}
-                  />
-                  Experience
-                </a>
-                <a 
-                  href="#work" 
-                  className={`group text-[16px] px-2 py-1 -mx-2 -my-1 transition-colors flex items-center gap-2 ${
-                    activeSection === "work" 
-                      ? "bg-black text-white" 
-                      : "hover:bg-black hover:text-white"
-                  }`}
-                >
-                  <video 
-                    src="/Ani.mp4" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className={`w-[15px] h-[15px] flex-shrink-0 ${
-                      activeSection === "work" ? "block" : "hidden group-hover:block"
-                    }`}
-                  />
-                  Work
-                </a>
-                <a 
-                  href="#articles" 
-                  className={`group text-[16px] px-2 py-1 -mx-2 -my-1 transition-colors flex items-center gap-2 ${
-                    activeSection === "articles" 
-                      ? "bg-black text-white" 
-                      : "hover:bg-black hover:text-white"
-                  }`}
-                >
-                  <video 
-                    src="/Ani.mp4" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className={`w-[15px] h-[15px] flex-shrink-0 ${
-                      activeSection === "articles" ? "block" : "hidden group-hover:block"
-                    }`}
-                  />
-                  Articles
-                </a>
-                <a 
-                  href="#about" 
-                  className={`group text-[16px] px-2 py-1 -mx-2 -my-1 transition-colors flex items-center gap-2 ${
-                    activeSection === "about" 
-                      ? "bg-black text-white" 
-                      : "hover:bg-black hover:text-white"
-                  }`}
-                >
-                  <video 
-                    src="/Ani.mp4" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
-                    className={`w-[15px] h-[15px] flex-shrink-0 ${
-                      activeSection === "about" ? "block" : "hidden group-hover:block"
-                    }`}
-                  />
-                  About
-                </a>
-              </nav>
+            <div className="col-span-12 md:col-span-4 md:col-start-9 xl:col-span-4 xl:col-start-9 px-[1rem] md:px-[1.5rem] pt-[2rem] md:pt-[4rem] pb-[8rem] md:pb-[4rem] flex flex-col justify-center">
+              <div className="space-y-[1.5rem] md:space-y-[2rem]">
+                <div>
+                  <div className="text-[0.875rem] md:text-[1rem] font-medium">Senior Product Designer @ Bynder</div>
+                  <div className="text-[0.875rem] md:text-[1rem] font-space-grotesk">2022 - Present</div>
+                </div>
+                <div>
+                  <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Founder @ Canopy</div>
+                  <div className="text-[0.875rem] md:text-[1rem] font-space-grotesk text-gray-400">2021-2022</div>
+                </div>
+                <div>
+                  <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Founding Designer / Consutant@ Telescope</div>
+                  <div className="text-[0.875rem] md:text-[1rem] font-space-grotesk text-gray-400">2021 - 2023</div>
+                </div>
+                <div>
+                  <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Product Designer @ Swemax</div>
+                  <div className="text-[0.875rem] md:text-[1rem] font-space-grotesk text-gray-400">2020 - 2021</div>
+                </div>
+                <div>
+                  <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Product Designer@ Advantage</div>
+                  <div className="text-[0.875rem] md:text-[1rem] font-space-grotesk text-gray-400">2019 - 2020</div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* Section 2 - 100vh */}
+        <section id="work" className="min-h-screen md:h-screen w-screen border-b border-[rgba(14,14,13,0.05)] relative">
+          <div className="h-full w-full relative">
+            <div className="hidden md:block absolute left-[calc(50%+480px)] top-0 bottom-0 w-0 border-r border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+            <div className="h-full max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 relative">
+              <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+            <div className="col-span-full h-full">
+              <div className="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 grid-rows-[repeat(6,minmax(450px,1fr))] md:grid-rows-[repeat(3,minmax(440px,1fr))] lg:grid-rows-[1fr_1fr] gap-0">
+                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
+                  <img src="/ORBIT-5-01-LITE.gif" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <div className="card-title-box">{getProjectTitle(1)}</div>
+                  </div>
+                  <div className="hidden xl:flex absolute inset-0 items-end justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <a href={getProjectLink(1)} target="_blank" rel="noopener noreferrer" className="card-hover-button pointer-events-auto">{getButtonText(1)}</a>
+                  </div>
+                </div>
+                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-white group min-h-[450px] md:min-h-[440px]">
+                  <img src="/Scene-17.gif" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <div className="card-title-box card-title-white">{getProjectTitle(2)}</div>
+                  </div>
+                  <div className="hidden xl:flex absolute inset-0 items-end justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <a href={getProjectLink(2)} target="_blank" rel="noopener noreferrer" className="card-hover-button pointer-events-auto">{getButtonText(2)}</a>
+                  </div>
+                </div>
+                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
+                  <video 
+                    ref={video1Ref}
+                    className="absolute inset-0 w-full h-full object-cover" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline
+                    preload="auto"
+                  >
+                    <source src="/videoExport-2026-01-26@09-47-26.668-540x540@60fps.mp4" type="video/mp4" />
+                  </video>
+                  <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <div className="card-title-box">{getProjectTitle(3)}</div>
+                  </div>
+                  <div className="hidden xl:flex absolute inset-0 items-end justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <a href={getProjectLink(3)} target="_blank" rel="noopener noreferrer" className="card-hover-button pointer-events-auto">{getButtonText(3)}</a>
+                  </div>
+                </div>
+                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden group min-h-[450px] md:min-h-[440px]">
+                  <img src="/Swemax.png" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <div className="card-title-box">{getProjectTitle(4)}</div>
+                  </div>
+                  <div className="hidden xl:flex absolute inset-0 items-end justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <a href={getProjectLink(4)} target="_blank" rel="noopener noreferrer" className="card-hover-button pointer-events-auto">{getButtonText(4)}</a>
+                  </div>
+                </div>
+                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
+                  <img src="/Search (1).gif" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <div className="card-title-box">{getProjectTitle(5)}</div>
+                  </div>
+                  <div className="hidden xl:flex absolute inset-0 items-end justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <button className="card-hover-button pointer-events-auto">{getButtonText(5)}</button>
+                  </div>
+                </div>
+                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
+                  <img src="/Notifications.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <div className="card-title-box">{getProjectTitle(6)}</div>
+                  </div>
+                  <div className="hidden xl:flex absolute inset-0 items-end justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
+                    <button className="card-hover-button pointer-events-auto">{getButtonText(6)}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </section>
+
+        {/* Section 3 - 150vh */}
+        <section className="min-h-[150vh] md:h-[150vh] w-screen border-b border-[rgba(14,14,13,0.05)]">
+          <div className="h-full max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 relative">
+            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+            <div className="hidden md:block absolute left-[66.666667%] top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+          </div>
+        </section>
+
+        {/* Section 4 - 100vh */}
+        <section className="min-h-screen md:h-screen w-screen">
+          <div className="h-full max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 relative">
+            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+            <div className="hidden md:block absolute left-[66.666667%] top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+          </div>
+        </section>
       </main>
     </div>
   );
