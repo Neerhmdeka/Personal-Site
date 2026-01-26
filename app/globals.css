@@ -115,20 +115,6 @@ body {
   font-family: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Project card hover overlay */
-.card-hover-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  z-index: 20;
-}
-
-
 .card-hover-button {
   background: black;
   color: white;
@@ -170,4 +156,39 @@ body {
 
 .card-title-box.card-title-white {
   color: white;
+}
+
+/* Logos scrolling animation */
+.logos-scroll {
+  overflow: hidden;
+  width: 100%;
+}
+
+.logos-track {
+  display: flex;
+  gap: 8rem;
+  animation: scroll-logos 30s linear infinite;
+  width: fit-content;
+}
+
+.logo-item {
+  height: 0.75rem;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .logo-item {
+    height: 1rem;
+  }
+}
+
+@keyframes scroll-logos {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }

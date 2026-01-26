@@ -50,7 +50,7 @@ export default function Home() {
     <div className="overflow-x-hidden">
       {/* Mobile/Tablet Header - Contact Only */}
       <header className="xl:hidden w-screen border-b border-[rgba(14,14,13,0.05)]">
-        <div className="max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto py-[1.5rem] px-[1rem] grid grid-cols-12 items-center">
+        <div className="max-w-[336px] md:max-w-[768px] xl:max-w-[960px] mx-auto py-[1.5rem] px-[1rem] grid grid-cols-12 items-center">
           <a 
             href="mailto:mriganavdeka@gmail.com" 
             className="col-span-2 text-[0.875rem] md:text-[1rem] font-space-grotesk text-black hover:text-gray-400 transition-colors"
@@ -62,7 +62,7 @@ export default function Home() {
       
       {/* Desktop Header - Full */}
       <header className="hidden xl:block w-screen border-b border-[rgba(14,14,13,0.05)]">
-        <div className="max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto py-[1.5rem] px-[1rem] md:px-0 grid grid-cols-12 items-center relative">
+        <div className="max-w-[336px] md:max-w-[768px] xl:max-w-[960px] mx-auto py-[1.5rem] px-[1rem] md:px-0 grid grid-cols-12 items-center relative">
           <a href="#work" className="col-span-6 md:col-span-2 text-[0.875rem] md:text-[1rem] pl-0 md:pl-[2rem] uppercase font-space-grotesk flex items-center hover:text-gray-400 transition-colors">Work</a>
           <a href="#" className="col-span-6 md:col-span-2 md:col-start-3 text-[0.875rem] md:text-[1rem] pl-0 md:pl-[2rem] uppercase font-space-grotesk flex items-center hover:text-gray-400 transition-colors">Articles</a>
           <a 
@@ -76,7 +76,7 @@ export default function Home() {
       <main>
         {/* Section 1 - 85vh */}
         <section className="min-h-[70vh] md:h-[70vh] xl:h-[85vh] w-screen border-b border-[rgba(14,14,13,0.05)]">
-          <div className="h-full max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 items-stretch relative">
+          <div className="h-full max-w-[336px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 items-stretch relative">
             <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
             <div className="hidden md:block absolute left-[66.666667%] top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
             <div className="col-span-12 md:col-span-8 xl:col-span-8 px-[1rem] md:px-[1.5rem] pt-[2rem] md:pt-[4rem] pb-0 md:pb-[4rem] flex items-center">
@@ -115,11 +115,11 @@ Over the past decade, I've collaborated with startups to build well-designed, fa
         <section id="work" className="min-h-screen md:h-screen w-screen border-b border-[rgba(14,14,13,0.05)] relative">
           <div className="h-full w-full relative">
             <div className="hidden md:block absolute left-[calc(50%+480px)] top-0 bottom-0 w-0 border-r border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
-            <div className="h-full max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 relative">
+            <div className="h-full max-w-[336px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 relative">
               <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
             <div className="col-span-full h-full">
-              <div className="h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 grid-rows-[repeat(6,minmax(450px,1fr))] md:grid-rows-[repeat(3,minmax(440px,1fr))] lg:grid-rows-[1fr_1fr] gap-0">
-                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
+              <div className="h-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 grid-rows-[repeat(6,minmax(450px,1fr))] md:grid-rows-[repeat(3,minmax(440px,1fr))] xl:grid-rows-[1fr_1fr] gap-0">
+                <div className="project-card col-span-1 md:col-span-1 xl:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
                   <img src="/ORBIT-5-01-LITE.gif" alt="" className="absolute inset-0 w-full h-full object-cover" />
                   <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
                     <div className="card-title-box">{getProjectTitle(1)}</div>
@@ -128,7 +128,7 @@ Over the past decade, I've collaborated with startups to build well-designed, fa
                     <a href={getProjectLink(1)} target="_blank" rel="noopener noreferrer" className="card-hover-button pointer-events-auto">{getButtonText(1)}</a>
                   </div>
                 </div>
-                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-white group min-h-[450px] md:min-h-[440px]">
+                <div className="project-card col-span-1 md:col-span-1 xl:col-span-4 row-span-1 relative overflow-hidden bg-white group min-h-[450px] md:min-h-[440px]">
                   <img src="/Scene-17.gif" alt="" className="absolute inset-0 w-full h-full object-cover" />
                   <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
                     <div className="card-title-box card-title-white">{getProjectTitle(2)}</div>
@@ -137,7 +137,7 @@ Over the past decade, I've collaborated with startups to build well-designed, fa
                     <a href={getProjectLink(2)} target="_blank" rel="noopener noreferrer" className="card-hover-button pointer-events-auto">{getButtonText(2)}</a>
                   </div>
                 </div>
-                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
+                <div className="project-card col-span-1 md:col-span-1 xl:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
                   <video 
                     ref={video1Ref}
                     className="absolute inset-0 w-full h-full object-cover" 
@@ -156,7 +156,7 @@ Over the past decade, I've collaborated with startups to build well-designed, fa
                     <a href={getProjectLink(3)} target="_blank" rel="noopener noreferrer" className="card-hover-button pointer-events-auto">{getButtonText(3)}</a>
                   </div>
                 </div>
-                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden group min-h-[450px] md:min-h-[440px]">
+                <div className="project-card col-span-1 md:col-span-1 xl:col-span-4 row-span-1 relative overflow-hidden group min-h-[450px] md:min-h-[440px]">
                   <img src="/Swemax.png" alt="" className="absolute inset-0 w-full h-full object-cover" />
                   <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
                     <div className="card-title-box">{getProjectTitle(4)}</div>
@@ -165,7 +165,7 @@ Over the past decade, I've collaborated with startups to build well-designed, fa
                     <a href={getProjectLink(4)} target="_blank" rel="noopener noreferrer" className="card-hover-button pointer-events-auto">{getButtonText(4)}</a>
                   </div>
                 </div>
-                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
+                <div className="project-card col-span-1 md:col-span-1 xl:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
                   <img src="/Search (1).gif" alt="" className="absolute inset-0 w-full h-full object-cover" />
                   <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
                     <div className="card-title-box">{getProjectTitle(5)}</div>
@@ -174,7 +174,7 @@ Over the past decade, I've collaborated with startups to build well-designed, fa
                     <button className="card-hover-button pointer-events-auto">{getButtonText(5)}</button>
                   </div>
                 </div>
-                <div className="project-card col-span-1 md:col-span-1 lg:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
+                <div className="project-card col-span-1 md:col-span-1 xl:col-span-4 row-span-1 relative overflow-hidden bg-black group min-h-[450px] md:min-h-[440px]">
                   <img src="/Notifications.jpg" alt="" className="absolute inset-0 w-full h-full object-cover" />
                   <div className="hidden xl:flex absolute inset-0 items-start justify-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20">
                     <div className="card-title-box">{getProjectTitle(6)}</div>
@@ -189,21 +189,83 @@ Over the past decade, I've collaborated with startups to build well-designed, fa
           </div>
         </section>
 
-        {/* Section 3 - 150vh */}
-        <section className="min-h-[150vh] md:h-[150vh] w-screen border-b border-[rgba(14,14,13,0.05)]">
-          <div className="h-full max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 relative">
+        {/* Section 3 - 100vh */}
+        <section className="hidden xl:block min-h-screen md:h-screen w-screen border-b border-[rgba(14,14,13,0.05)]">
+          <div className="h-full max-w-[336px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 items-start relative py-[8rem]">
             <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
             <div className="hidden md:block absolute left-[66.666667%] top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+            <div className="col-span-12 md:col-span-8 xl:col-span-8 px-[1rem] md:px-[1.5rem] flex flex-col h-full">
+              <div className="flex flex-col space-y-[2rem]">
+                <p className="text-[2em]">I help you envision the future and create steps to reach it</p>
+                <div className="flex flex-col gap-[1rem]">
+                  <p className="text-[0.875rem] md:text-[1rem]">I believe in care and love for ones craft, my job as a designer I believe is to help you dream of what a better world could look like, visualise it with attention to detail and plan out how to achieve that dream.</p>
+                  <p className="text-[0.875rem] md:text-[1rem]">My work isn't created in isolation. It's shaped by constant exposure to the art and thinking of thousands of artists, designers, and creators. Their work influences my perspective, helping me refine my own style, taste, and the way I approach and solve problems.</p>
+                  <p className="text-[0.875rem] md:text-[1rem]">I believe the product designer's value isn't in their skill with software; it's in their strategic skill to synthesize human needs and technological capability. We are the ones uniquely positioned to see the latent potential in the market, decode its signs, and design the tangible path to get there.</p>
+                </div>
+              </div>
+              <div className="flex-1 flex items-end">
+                <img src="/Signature.png" alt="Signature" className="w-auto h-auto max-w-[200px]" />
+              </div>
+            </div>
+            <div className="col-span-12 md:col-span-4 md:col-start-9 xl:col-span-4 xl:col-start-9 px-[1rem] md:px-[1.5rem] flex flex-col justify-start">
+              <div className="space-y-[1.5rem] md:space-y-[2rem]">
+                <div>
+                  <div className="text-[0.875rem] md:text-[1rem] font-medium mb-[1rem]">I can help with</div>
+                  <div className="space-y-[0.75rem]">
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Framer and Webflow website design & development</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Local business websites</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Digital product design</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Design systems</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Startup design advisor</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Startup and business strategy</div>
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[0.875rem] md:text-[1rem] font-medium mb-[1rem]">Current Interests</div>
+                  <div className="space-y-[0.75rem]">
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">All things dither and shaders</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Woodworking</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Working out and combat sports</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">90s electronics & hardware</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Collecting Vinyl</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">Cars and motosport</div>
+                    <div className="text-[0.875rem] md:text-[1rem] text-gray-400">AI tools and apps</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* Section 4 - 100vh */}
-        <section className="min-h-screen md:h-screen w-screen">
-          <div className="h-full max-w-[300px] md:max-w-[768px] xl:max-w-[960px] mx-auto grid grid-cols-12 relative">
-            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
-            <div className="hidden md:block absolute left-[66.666667%] top-0 bottom-0 w-0 border-l border-[rgba(14,14,13,0.05)] pointer-events-none"></div>
+        {/* Section 4 - Logos Strip */}
+        <section className="w-screen border-b border-[rgba(14,14,13,0.05)] py-[2rem] md:py-[4rem] overflow-hidden">
+          <div className="logos-scroll">
+            <div className="logos-track">
+              <img src="/a.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/b.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/c.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/d.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/e.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/f.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/g.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/h.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/j.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/l.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              {/* Duplicate for seamless loop */}
+              <img src="/a.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/b.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/c.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/d.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/e.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/f.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/g.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/h.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/j.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+              <img src="/l.png" alt="Company logo" className="logo-item opacity-60 hover:opacity-100 transition-opacity" />
+            </div>
           </div>
         </section>
+
       </main>
     </div>
   );
